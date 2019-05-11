@@ -17,10 +17,13 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 export default {
   name: 'HomeHeader',
-  props: {
-    city: String
+  computed: {
+    // 展开运算符 把 store里面的city映射到计算属性里面的city
+    ...mapState(['city']),
+    ...mapGetters(['doubleCity'])
   }
 }
 </script>

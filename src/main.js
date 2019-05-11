@@ -4,8 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import fastClick from 'fastclick'
+import 'babel-polyfill'
 // 引入第三方轮播图组件
 import VueAwesomeSwiper from 'vue-awesome-swiper'
+import store from './store'
 import 'styles/reset.css'
 // 解决移动端border1像素边框的css文件
 import 'styles/border.css'
@@ -21,6 +23,7 @@ Vue.use(VueAwesomeSwiper)
 new Vue({
   el: '#app',
   router,
+  store,
   // 局部组件
   components: { App },
   // 下面这句话意思是将app组件渲染在页面中，可以不在这里写，直接在index里面进行书写app标签。

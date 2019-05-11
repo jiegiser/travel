@@ -5,14 +5,14 @@
                 <div class="title border-topbottom">当前城市</div>
                 <div class="button-list">
                     <div class="button-wapper">
-                        <div class="button">北京</div>
+                        <div class="button">{{currentCity}}</div>
                     </div>
                 </div>
             </div>
             <div class="area">
                 <div class="title border-topbottom">热门城市</div>
                 <div class="button-list">
-                    <div class="button-wapper" v-for="item of hot" :key="item.id">
+                    <div class="button-wapper" v-for="item of hot" :key="item.id" @click="handleCityClick(item.name)">
                         <div class="button">{{item.name}}</div>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
             <div class="area" v-for="(item,key) of cities"  :key="key" :ref="key">
                 <div class="title border-bottom">{{key}}</div>
                 <div class="item-list">
-                    <div class="item border-bottom" v-for="innerItem of item" :key="innerItem.id">{{innerItem.name}}</div>
+                    <div class="item border-bottom" v-for="innerItem of item" :key="innerItem.id" @click="handleCityClick(innerItem.name)">{{innerItem.name}}</div>
                 </div>
             </div>
         </div>
@@ -30,16 +30,13 @@
 
 <script>
 import Bscroll from 'better-scroll'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'CityList',
   props: {
     hot: Array,
     cities: Object,
     letter: String
-  },
-  mounted () {
-    //   传入dom元素
-    this.scroll = new Bscroll(this.$refs.wrapper)
   },
   watch: {
     letter () {
@@ -49,6 +46,29 @@ export default {
         this.scroll.scrollToElement(element)
       }
     }
+  },
+  methods: {
+    handleCityClick (city) {
+      // 触发changeCity这个Action
+      // this.$store.dispatch('changeCity', city)
+      // 组件可以直接通过commit调用执行mutation里面的方法就行修改数据
+      // this.$store.commit('changeCity', city)
+      // 可以用下面的方法这样写
+      this.changeCity(city)
+      // 不仅可以使用<router-link></router-link>这种方法跳转，也可以使用编程式导航这种。进行push要跳转的地址就可以
+      this.$router.push('/')
+    },
+    ...mapMutations(['changeCity'])
+  },
+  computed: {
+    // 将vuex的city映射到计算属性的currentCity
+    ...mapState({
+      currentCity: 'city'
+    })
+  },
+  mounted () {
+    // 传入dom元素
+    this.scroll = new Bscroll(this.$refs.wrapper)
   }
 }
 </script>

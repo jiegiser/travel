@@ -1,6 +1,6 @@
 <template>
 <div class="wrapper">
-  <swiper :options="swiperOption" v-if="showSwiper">
+  <swiper :options="swiperOptions" v-if="showSwiper">
     <swiper-slide v-for="item of list" :key="item.id">
         <img class="swiper-img" :src="item.imgUrl" />
     </swiper-slide>
@@ -20,7 +20,7 @@ export default {
   },
   data () {
     return {
-      swiperOption: {
+      swiperOptions: {
         // 添加配置项，用于显示分页的内容，上面的小点。
         pagination: '.swiper-pagination',
         // 轮播图进行循环

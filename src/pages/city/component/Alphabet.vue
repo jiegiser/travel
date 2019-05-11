@@ -6,7 +6,7 @@
           :key="item"
           :ref="item"
           @click="handleLetterClick"
-          @touchstart="handleTouchStart"
+          @touchstart.prevent="handleTouchStart"
           @touchmove="handleTouchMove"
           @touchend="handleTouchEnd"
         >
@@ -32,7 +32,6 @@ export default {
     // 页面渲染完更新之后执行
     // 元素离顶部的高度
     this.startY = this.$refs['A'][0].offsetTop
-    console.log(this.startY)
   },
   computed: {
     letter () {
